@@ -2,12 +2,12 @@ server:
   port: 9099
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/tasklist?currentSchema=tasklist
+    url: jdbc:postgresql://localhost:5432/tasklist
     username: yaroslavyankov
     password: postgres
-    driver-class-name: org.postgresql.Driver
+    driverClassName: org.postgresql.Driver
   sql:
     init:
       mode: always
-      continue-on-error: false
-      data-locations: classpath:sql/demo_data.sql
+      schema-locations: classpath:sql/schema.sql
+#      data-locations: classpath:sql/demo_data.sql
