@@ -1,8 +1,10 @@
 server:
   port: 9099
 spring:
+  main:
+    allow-circular-references: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/tasklist
+    url: jdbc:postgresql://localhost:5432/tasklist?currentSchema=tasklist
     username: yaroslavyankov
     password: postgres
     driverClassName: org.postgresql.Driver
@@ -10,7 +12,7 @@ spring:
     init:
       mode: always
       schema-locations: classpath:sql/schema.sql
-#      data-locations: classpath:sql/demo_data.sql
+      #data-locations: classpath:sql/demo_data.sql
 
 security:
   jwt:
