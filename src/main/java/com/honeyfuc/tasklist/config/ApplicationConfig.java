@@ -53,7 +53,7 @@ public class ApplicationConfig {
                     })
                     .accessDeniedHandler((request, response, accessDeniedException) -> {
                         response.setStatus(HttpStatus.FORBIDDEN.value());
-                        response.getWriter().write("Forbidden.");
+                        response.getWriter().write("Unauthorised.");
                     })
                 )
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
