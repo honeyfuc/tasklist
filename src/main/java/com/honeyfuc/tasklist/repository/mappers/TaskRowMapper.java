@@ -21,7 +21,7 @@ public class TaskRowMapper {
             task.setStatus(Status.valueOf(resultSet.getString("task_status")));
             Timestamp timestamp = resultSet.getTimestamp("task_expiration_date");
             if (timestamp != null) {
-                task.setExpirationDate(resultSet.getTimestamp("task_expiration_date").toLocalDateTime());
+                task.setExpirationDate(timestamp.toLocalDateTime());
             }
             return task;
         }
@@ -40,7 +40,7 @@ public class TaskRowMapper {
                 task.setStatus(Status.valueOf(resultSet.getString("task_status")));
                 Timestamp timestamp = resultSet.getTimestamp("task_expiration_date");
                 if (timestamp != null) {
-                    task.setExpirationDate(resultSet.getTimestamp("task_expiration_date").toLocalDateTime());
+                    task.setExpirationDate(timestamp.toLocalDateTime());
                 }
                 tasks.add(task);
             }
