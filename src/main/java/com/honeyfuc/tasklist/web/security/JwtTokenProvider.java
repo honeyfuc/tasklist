@@ -7,6 +7,7 @@ import com.honeyfuc.tasklist.service.UserService;
 import com.honeyfuc.tasklist.service.props.JwtProperties;
 import com.honeyfuc.tasklist.web.dto.auth.JwtResponse;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ClaimsBuilder;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -41,10 +42,13 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
     }
 
-    public String createAccessToken(Long userId, String username, Set<Role> roles) {
-        Claims claims = Jwts.claims().subject(username).build();
-        claims.put("id", userId);
-        claims.put("roles", resolveRoles(roles));
+    public String createAccessToken(final Long userId,
+                                    final String username,
+                                    final Set<Role> roles) {
+        Claims claims = Jwts.claims()
+                .subject(username)
+                .id(String.valueOf(userId))
+                .add("roles", resolveRoles(roles)).build();
         Date now = new Date();
         Date validity = new Date(now.getTime() + jwtProperties.getAccess());
 
@@ -63,8 +67,10 @@ public class JwtTokenProvider {
     }
 
     public String createRefreshToken(Long userId, String username) {
-        Claims claims = Jwts.claims().subject(username).build();
-        claims.put("id", userId);
+        Claims claims = Jwts.claims()
+                .subject(username)
+                .id(String.valueOf(userId))
+                .build();
         Date now = new Date();
         Date validity = new Date(now.getTime() + jwtProperties.getRefresh());
         return Jwts.builder()
@@ -106,8 +112,7 @@ public class JwtTokenProvider {
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
-                .get("id")
-                .toString();
+                .getId();
     }
 
     public Authentication getAuthentication(String token) {

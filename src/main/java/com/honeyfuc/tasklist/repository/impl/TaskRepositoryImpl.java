@@ -93,8 +93,8 @@ public class TaskRepositoryImpl implements TaskRepository {
         try {
             Connection connection = dataSourceConfig.getConnection();
             PreparedStatement statement = connection.prepareStatement(ASSIGN);
-            statement.setLong(1, taskId);
-            statement.setLong(2, userId);
+            statement.setLong(1, userId);
+            statement.setLong(2, taskId);
             statement.executeUpdate();
         } catch (SQLException exception) {
             throw new ResourceMappingException("Exception while assigning a task to a user");
@@ -142,12 +142,13 @@ public class TaskRepositoryImpl implements TaskRepository {
             } else {
                 statement.setTimestamp(4, Timestamp.valueOf(task.getExpirationDate()));
             }
+            statement.executeUpdate();
             try (ResultSet resultSet = statement.getGeneratedKeys()) {
                 resultSet.next();
                 task.setId(resultSet.getLong(1));
             }
         } catch (SQLException exception) {
-            throw new ResourceMappingException("Exception while updating a task");
+            throw new ResourceMappingException("Exception while creating a task");
         }
     }
 
