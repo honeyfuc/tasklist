@@ -3,7 +3,6 @@ package com.honeyfuc.tasklist.config;
 import com.honeyfuc.tasklist.web.security.JwtTokenFilter;
 import com.honeyfuc.tasklist.web.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;

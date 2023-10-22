@@ -70,7 +70,7 @@ public class TaskRepositoryImpl implements TaskRepository {
                 return Optional.ofNullable(TaskRowMapper.mapRow(resultSet));
             }
         } catch (SQLException exception) {
-            throw new ResourceMappingException("Error while finding task by id");
+            throw new ResourceMappingException("Exception while finding task by id");
         }
     }
 
@@ -84,7 +84,7 @@ public class TaskRepositoryImpl implements TaskRepository {
                 return TaskRowMapper.mapRows(resultSet);
             }
         } catch (SQLException exception) {
-            throw new ResourceMappingException("Error while finding all tasks by id");
+            throw new ResourceMappingException("Exception while finding all tasks by id");
         }
     }
 
@@ -97,7 +97,7 @@ public class TaskRepositoryImpl implements TaskRepository {
             statement.setLong(2, userId);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new ResourceMappingException("Error while assigning a task to a user");
+            throw new ResourceMappingException("Exception while assigning a task to a user");
         }
     }
 
@@ -121,7 +121,7 @@ public class TaskRepositoryImpl implements TaskRepository {
             statement.setLong(5, task.getId());
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new ResourceMappingException("Error while updating a task");
+            throw new ResourceMappingException("Exception while updating a task");
         }
     }
 
@@ -147,7 +147,7 @@ public class TaskRepositoryImpl implements TaskRepository {
                 task.setId(resultSet.getLong(1));
             }
         } catch (SQLException exception) {
-            throw new ResourceMappingException("Error while updating a task");
+            throw new ResourceMappingException("Exception while updating a task");
         }
     }
 
@@ -159,7 +159,7 @@ public class TaskRepositoryImpl implements TaskRepository {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new ResourceMappingException("Error while deleting a task");
+            throw new ResourceMappingException("Exception while deleting a task");
         }
     }
 
