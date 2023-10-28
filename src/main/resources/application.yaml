@@ -14,6 +14,9 @@ spring:
       schema-locations: classpath:sql/schema.sql
       #data-locations: classpath:sql/demo_data.sql
 
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
 security:
   jwt:
     secret: ZmFzZGZoamFzZGtoZmthc2tsZmphZHNrZmpBR0FTR0FTREdTQURHRFNmYWRzamZrc2Fkdm5qc2RhdmprYXNmamthc2ZBU0dWQVNER0ZBU0dBc2dmYWhzZGprZ2hhc2Rqa2Zhc2RrZmFza2RqaGZnamRzaGFmamhzZGtqYWZhc2pkaw==

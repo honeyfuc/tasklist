@@ -7,7 +7,6 @@ import com.honeyfuc.tasklist.service.UserService;
 import com.honeyfuc.tasklist.service.props.JwtProperties;
 import com.honeyfuc.tasklist.web.dto.auth.JwtResponse;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ClaimsBuilder;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
