@@ -26,6 +26,7 @@
 		<jakarta-validation.version>3.0.2</jakarta-validation.version>
 		<jjwt.version>0.12.3</jjwt.version>
 		<mybatis.version>3.0.2</mybatis.version>
+		<liquibase.version>4.24.0</liquibase.version>
 	</properties>
 
 	<dependencies>
@@ -61,6 +62,12 @@
 			<version>${mybatis.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>${liquibase.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>

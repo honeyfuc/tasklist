@@ -10,10 +10,12 @@ spring:
     driverClassName: org.postgresql.Driver
   sql:
     init:
-      mode: always
-      schema-locations: classpath:sql/schema.sql
+      mode: never
       #data-locations: classpath:sql/demo_data.sql
-
+  liquibase:
+    change-log: classpath:liquibase/db.changelog.yaml
+    enabled: true
+    default-schema: tasklist
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
 

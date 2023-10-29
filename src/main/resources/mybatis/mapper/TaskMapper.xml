@@ -34,7 +34,7 @@
     </select>
 
     <insert id="assignToUserById">
-        INSERT INTO users_tasks (user_id, task_id)
+        INSERT INTO users_tasks (task_id, user_id)
         VALUES (#{taskId}, #{userId})
     </insert>
 
