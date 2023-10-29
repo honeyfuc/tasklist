@@ -63,7 +63,7 @@
         WHERE id = #{id}
     </update>
 
-    <insert id="id" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+    <insert id="create" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
         INSERT INTO users (name, username, password)
         VALUES (#{name}, #{username}, #{password})
     </insert>

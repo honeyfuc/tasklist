@@ -35,7 +35,7 @@
 
     <insert id="assignToUserById">
         INSERT INTO users_tasks (user_id, task_id)
-        VALUES (#{taskID}, #{userId})
+        VALUES (#{taskId}, #{userId})
     </insert>
 
     <update id="update">
