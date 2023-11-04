@@ -4,7 +4,6 @@ import com.honeyfuc.tasklist.domain.exception.AccessDeniedException;
 import com.honeyfuc.tasklist.domain.exception.ExceptionBody;
 import com.honeyfuc.tasklist.domain.exception.ResourceMappingException;
 import com.honeyfuc.tasklist.domain.exception.ResourceNotFoundException;
-import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -70,12 +69,6 @@ public class ControllerAdvice {
                         violation -> violation.getMessage()
                 )));
         return exceptionBody;
-    }
-
-    @ExceptionHandler(ExpiredJwtException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ExceptionBody handleExpiredJwt(ExpiredJwtException e) {
-        return new ExceptionBody("JWT expired");
     }
 
     @ExceptionHandler(Exception.class)
