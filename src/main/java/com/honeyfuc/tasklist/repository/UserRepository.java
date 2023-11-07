@@ -2,12 +2,9 @@ package com.honeyfuc.tasklist.repository;
 
 import com.honeyfuc.tasklist.domain.user.Role;
 import com.honeyfuc.tasklist.domain.user.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.Optional;
 
-@Mapper
 public interface UserRepository {
 
     Optional<User> findById(Long id);
@@ -18,9 +15,9 @@ public interface UserRepository {
 
     void create(User user);
 
-    void insertUserRole(@Param("userId") Long userId,@Param("role") Role role);
+    void insertUserRole(Long userId, Role role);
 
-    boolean isTaskOwner(@Param("userId") Long userId,@Param("taskId") Long taskId);
+    boolean isTaskOwner(Long userId, Long taskId);
 
     void delete(Long id);
 }

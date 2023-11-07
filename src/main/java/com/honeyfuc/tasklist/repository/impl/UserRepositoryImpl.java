@@ -7,6 +7,7 @@ import com.honeyfuc.tasklist.repository.DataSourceConfig;
 import com.honeyfuc.tasklist.repository.UserRepository;
 import com.honeyfuc.tasklist.repository.mappers.UserRowMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -15,7 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-//@Repository
+@Slf4j
+@Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
@@ -90,6 +92,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Optional<User> findById(Long id) {
         try {
+            log.info("Get into rep method");
             Connection connection = dataSourceConfig.getConnection();
             PreparedStatement statement = connection.prepareStatement(FIND_BY_ID,
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
