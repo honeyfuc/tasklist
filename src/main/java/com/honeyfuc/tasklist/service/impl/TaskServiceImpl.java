@@ -3,9 +3,11 @@ package com.honeyfuc.tasklist.service.impl;
 import com.honeyfuc.tasklist.domain.exception.ResourceNotFoundException;
 import com.honeyfuc.tasklist.domain.task.Status;
 import com.honeyfuc.tasklist.domain.task.Task;
+import com.honeyfuc.tasklist.domain.user.User;
 import com.honeyfuc.tasklist.repository.TaskRepository;
 import com.honeyfuc.tasklist.repository.UserRepository;
 import com.honeyfuc.tasklist.service.TaskService;
+import com.honeyfuc.tasklist.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -21,6 +23,8 @@ import java.util.List;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
+
+    private final UserService userService;
 
     @Override
     @Transactional(readOnly = true)
@@ -43,7 +47,7 @@ public class TaskServiceImpl implements TaskService {
         if (task.getStatus() == null) {
             task.setStatus(Status.TODO);
         }
-        taskRepository.update(task);
+        taskRepository.save(task);
         return task;
     }
 
@@ -51,9 +55,10 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @Cacheable(value = "TaskService::getById", key = "#task.id")
     public Task create(Task task, Long userId) {
+        User user = userService.getById(userId);
         task.setStatus(Status.TODO);
-        taskRepository.create(task);
-        taskRepository.assignToUserById(task.getId(), userId);
+        user.getTasks().add(task);
+        userService.update(user);
 
         return task;
     }
@@ -62,6 +67,6 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     @CacheEvict(value = "TaskService::getById", key = "#id")
     public void delete(Long id) {
-        taskRepository.delete(id);
+        taskRepository.deleteById(id);
     }
 }
