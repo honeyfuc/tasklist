@@ -1,6 +1,7 @@
 package com.honeyfuc.tasklist.web.dto.task;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.honeyfuc.tasklist.domain.task.Status;
 import com.honeyfuc.tasklist.web.dto.validation.OnCreate;
 import com.honeyfuc.tasklist.web.dto.validation.OnUpdate;
@@ -11,6 +12,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Schema(description = "Task DTO")
@@ -36,5 +38,8 @@ public class TaskDto {
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime expirationDate;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private List<String> images;
 
 }

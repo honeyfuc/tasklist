@@ -1,8 +1,10 @@
 package com.honeyfuc.tasklist.config;
 
+import com.honeyfuc.tasklist.service.props.MinioProperties;
 import com.honeyfuc.tasklist.web.security.JwtTokenFilter;
 import com.honeyfuc.tasklist.web.security.JwtTokenProvider;
 import com.honeyfuc.tasklist.web.security.expressions.CustomSecurityExceptionHandler;
+import io.minio.MinioClient;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -38,6 +40,9 @@ public class ApplicationConfig {
 
     private final ApplicationContext applicationContext;
 
+    private final MinioProperties minioProperties;
+
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -53,6 +58,14 @@ public class ApplicationConfig {
         DefaultMethodSecurityExpressionHandler expressionHandler = new CustomSecurityExceptionHandler();
         expressionHandler.setApplicationContext(applicationContext);
         return expressionHandler;
+    }
+
+    @Bean
+    public MinioClient minioClient() {
+        return MinioClient.builder()
+                .endpoint(minioProperties.getUrl())
+                .credentials(minioProperties.getAccessKey(), minioProperties.getSecretKey())
+                .build();
     }
 
     @Bean

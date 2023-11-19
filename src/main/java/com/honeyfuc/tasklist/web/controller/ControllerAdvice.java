@@ -1,9 +1,6 @@
 package com.honeyfuc.tasklist.web.controller;
 
-import com.honeyfuc.tasklist.domain.exception.AccessDeniedException;
-import com.honeyfuc.tasklist.domain.exception.ExceptionBody;
-import com.honeyfuc.tasklist.domain.exception.ResourceMappingException;
-import com.honeyfuc.tasklist.domain.exception.ResourceNotFoundException;
+import com.honeyfuc.tasklist.domain.exception.*;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -47,6 +44,12 @@ public class ControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionBody handleAuthentication() {
         return new ExceptionBody("Authentication failed.");
+    }
+
+    @ExceptionHandler(ImageUploadException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionBody handleImageUpload(ImageUploadException e) {
+        return new ExceptionBody(e.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

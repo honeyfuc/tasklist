@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Locale;
 
 @Entity
@@ -22,4 +23,9 @@ public class Task implements Serializable {
     private Status status;
 
     private LocalDateTime expirationDate;
+
+    @Column(name = "image")
+    @CollectionTable(name = "tasks_images")
+    @ElementCollection
+    private List<String> images;
 }
