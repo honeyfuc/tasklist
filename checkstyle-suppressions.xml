@@ -10,3 +10,4 @@
     <suppress checks="MagicNumber"/>
     <suppress checks="HiddenField"/>
 </suppressions>
+
