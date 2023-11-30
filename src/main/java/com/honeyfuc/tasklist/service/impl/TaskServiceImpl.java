@@ -6,7 +6,6 @@ import com.honeyfuc.tasklist.domain.task.Task;
 import com.honeyfuc.tasklist.domain.task.TaskImage;
 import com.honeyfuc.tasklist.domain.user.User;
 import com.honeyfuc.tasklist.repository.TaskRepository;
-import com.honeyfuc.tasklist.repository.UserRepository;
 import com.honeyfuc.tasklist.service.ImageService;
 import com.honeyfuc.tasklist.service.TaskService;
 import com.honeyfuc.tasklist.service.UserService;
@@ -14,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
