@@ -1,7 +1,6 @@
 package com.honeyfuc.tasklist.web.security.expressions;
 
 import com.honeyfuc.tasklist.domain.user.Role;
-import com.honeyfuc.tasklist.service.TaskService;
 import com.honeyfuc.tasklist.service.UserService;
 import com.honeyfuc.tasklist.web.security.JwtEntity;
 import lombok.RequiredArgsConstructor;

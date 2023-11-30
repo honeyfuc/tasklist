@@ -70,9 +70,9 @@ public class UserController {
     @PostMapping("/{id}/tasks")
     @Operation(summary = "Add Task to User")
     @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
-    public TaskDto createTask(@Validated(OnCreate.class ) @PathVariable Long id, @RequestBody TaskDto dto) {
+    public TaskDto createTask(@Validated(OnCreate.class) @PathVariable Long id, @RequestBody TaskDto dto) {
         Task task = taskMapper.toEntity(dto);
-        Task createdTask =  taskService.create(task, id);
+        Task createdTask = taskService.create(task, id);
         return taskMapper.toDto(createdTask);
     }
 }
