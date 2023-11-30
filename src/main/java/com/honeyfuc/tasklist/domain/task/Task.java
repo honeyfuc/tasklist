@@ -13,9 +13,11 @@ import java.util.List;
 public class Task implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
+
     private String description;
 
     @Enumerated(value = EnumType.STRING)
@@ -25,6 +27,6 @@ public class Task implements Serializable {
 
     @Column(name = "image")
     @CollectionTable(name = "tasks_images")
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> images;
 }
