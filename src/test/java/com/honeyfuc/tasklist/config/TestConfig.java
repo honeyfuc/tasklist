@@ -23,6 +23,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @TestConfiguration
 @RequiredArgsConstructor
@@ -36,7 +37,7 @@ public class TestConfig {
 
     @Bean
     @Primary
-    public BCryptPasswordEncoder testPasswordEncoder() {
+    public PasswordEncoder testPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

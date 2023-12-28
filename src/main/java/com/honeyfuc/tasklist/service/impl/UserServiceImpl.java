@@ -48,11 +48,8 @@ public class UserServiceImpl implements UserService {
             @CachePut(value = "UserService::getByUsername", key = "#user.username")
     })
     public User update(final User user) {
-        User exiting = getById(user.getId());
-        exiting.setName(user.getName());
-        exiting.setUsername(user.getUsername());
-        exiting.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(exiting);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
         return user;
     }
 
