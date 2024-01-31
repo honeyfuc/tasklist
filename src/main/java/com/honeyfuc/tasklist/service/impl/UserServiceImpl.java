@@ -1,9 +1,11 @@
 package com.honeyfuc.tasklist.service.impl;
 
+import com.honeyfuc.tasklist.domain.MailType;
 import com.honeyfuc.tasklist.domain.exception.ResourceNotFoundException;
 import com.honeyfuc.tasklist.domain.user.Role;
 import com.honeyfuc.tasklist.domain.user.User;
 import com.honeyfuc.tasklist.repository.UserRepository;
+import com.honeyfuc.tasklist.service.MailService;
 import com.honeyfuc.tasklist.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Properties;
 import java.util.Set;
 
 @Service
@@ -23,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final MailService mailService;
 
 
     @Override
@@ -74,6 +79,7 @@ public class UserServiceImpl implements UserService {
         Set<Role> roles = Set.of(Role.ROLE_USER);
         user.setRoles(roles);
         userRepository.save(user);
+        mailService.sendEmail(user, MailType.REGISTRATION, new Properties());
         return user;
     }
 
@@ -82,6 +88,15 @@ public class UserServiceImpl implements UserService {
     @Cacheable(value = "UserService::isTaskOwner", key = "#userId + '.' + #taskId")
     public boolean isTaskOwner(final Long userId, final Long taskId) {
         return userRepository.isTaskOwner(userId, taskId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    @Cacheable(value = "UserService::getTaskAuthor",
+            key = "#taskId")
+    public User getTaskAuthor(Long taskId) {
+        return userRepository.findTaskAuthor(taskId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override

@@ -2,25 +2,22 @@ package com.honeyfuc.tasklist.config;
 
 import com.honeyfuc.tasklist.repository.TaskRepository;
 import com.honeyfuc.tasklist.repository.UserRepository;
-import com.honeyfuc.tasklist.service.AuthService;
-import com.honeyfuc.tasklist.service.ImageService;
-import com.honeyfuc.tasklist.service.TaskService;
-import com.honeyfuc.tasklist.service.UserService;
-import com.honeyfuc.tasklist.service.impl.AuthServiceImpl;
-import com.honeyfuc.tasklist.service.impl.ImageServiceImpl;
-import com.honeyfuc.tasklist.service.impl.TaskServiceImpl;
-import com.honeyfuc.tasklist.service.impl.UserServiceImpl;
+import com.honeyfuc.tasklist.service.*;
+import com.honeyfuc.tasklist.service.impl.*;
 import com.honeyfuc.tasklist.service.props.JwtProperties;
 import com.honeyfuc.tasklist.service.props.MinioProperties;
 import com.honeyfuc.tasklist.web.security.JwtTokenProvider;
 import com.honeyfuc.tasklist.web.security.JwtUserDetailsService;
+import freemarker.template.Configuration;
 import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -79,9 +76,25 @@ public class TestConfig {
     }
 
     @Bean
+    public Configuration configuration() {
+        return Mockito.mock(Configuration.class);
+    }
+
+    @Bean
+    public JavaMailSender mailSender() {
+        return Mockito.mock(JavaMailSender.class);
+    }
+
+    @Bean
+    @Primary
+    public MailService mailService() {
+        return new MailServiceImpl(configuration(), mailSender());
+    }
+
+    @Bean
     @Primary
     public UserService userService() {
-        return new UserServiceImpl(userRepository, testPasswordEncoder());
+        return new UserServiceImpl(userRepository, testPasswordEncoder(), mailService());
     }
 
     @Bean
